@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ncepu.crm.settings.dao.UserDao">
+    <sql id="selectUser">
+        select id, loginAct, name, loginPwd, email, expireTime, lockState, deptno, allowIps, createTime, createBy, editTime from tbl_user
+    </sql>
+    <select id="login" resultType="User">
+        <include refid="selectUser"/>
+        <where>
+            <if test="loginAct != null and loginAct != ''">
+                loginAct = #{loginAct} and loginPwd = #{loginPwd}
+            </if>
+        </where>
+    </select>
+    <select id="getUserList" resultType="User">
+        <include refid="selectUser"/>
+    </select>
+</mapper>
